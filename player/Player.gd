@@ -22,7 +22,7 @@ func _process(delta):
 		catch_stamina -= delta
 
 func _physics_process(delta):
-	# Add the gravity.
+	# Add gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
