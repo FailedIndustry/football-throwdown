@@ -14,3 +14,6 @@ mesh = SubResource("CapsuleMesh_va5aa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ks4al")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.986615, 0.163068, 0, -0.163068, 0.986615, 0, 1.35551, 2.72746)

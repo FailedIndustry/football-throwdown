@@ -1,14 +1,25 @@
 extends CharacterBody3D
-
+class_name Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 var health: int = 100
+var stamina: int = 100
+var catch_stamina: int = 1
+var can_catch: bool = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+func ragdoll(force: Vector3):
+	pass
+
+func _process(delta):
+	if catch_stamina <= 0:
+		can_catch = false
+	else:
+		catch_stamina -= delta
 
 func _physics_process(delta):
 	# Add the gravity.
