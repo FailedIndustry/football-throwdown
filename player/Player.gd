@@ -7,6 +7,7 @@ class_name Player
 @export var speed = 14
 @export var jump_velocity = 4.5
 @export var fall_acceleration = 75
+@export var walk_deceleration = 8
 @export var health: int = 100
 @export var stamina: int = 100
 @export var catch_stamina: int = 1
@@ -57,7 +58,16 @@ func _physics_process(delta):
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, abs(velocity.x/walk_deceleration))
+		velocity.z = move_toward(velocity.z, 0, abs(velocity.z/walk_deceleration))
+		
+		# Stop deceleration calculations when velocity is negligible
+		if abs(velocity.x) < 0.05:
+			velocity.x = 0
+		if abs(velocity.z) < 0.05:
+			velocity.z = 0
+		
+	print(velocity.x)
+	print(velocity.z)
 
 	move_and_slide()
