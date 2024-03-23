@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name Player
 
+@onready var camera_yaw = $CameraRoot/CameraYaw
+
+# game variables
 @export var speed = 14
 @export var jump_velocity = 4.5
 @export var fall_acceleration = 75
@@ -8,6 +11,11 @@ class_name Player
 @export var stamina: int = 100
 @export var catch_stamina: int = 1
 @export var can_catch: bool = false
+
+# y-rotation variables 
+var yaw : float = 0
+var yaw_sensitivity : float = 0.002
+var yaw_acceleration : float = 15
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -21,7 +29,15 @@ func _process(delta):
 	else:
 		catch_stamina -= delta
 
+# Change yaw using same method as changing camera pitch
+func _input(event):
+	if event is InputEventMouseMotion:
+		yaw += -event.relative.x * yaw_sensitivity
+
 func _physics_process(delta):
+	# Rotate player yaw
+	rotation_degrees.y = rad_to_deg(lerp_angle(rotation.y, yaw, yaw_acceleration * delta))
+	
 	# Add gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

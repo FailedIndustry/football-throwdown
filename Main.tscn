@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkl7akcf5ndf6"]
+[gd_scene load_steps=8 format=3 uid="uid://bkl7akcf5ndf6"]
 
 [ext_resource type="PackedScene" uid="uid://jcti73ukm64e" path="res://player/Player.tscn" id="1_w0i2p"]
 
@@ -21,6 +21,8 @@ size = Vector3(100, 1, 100)
 [sub_resource type="BoxMesh" id="BoxMesh_yw131"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_gbrwt"]
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -41,3 +43,11 @@ skeleton = NodePath("../..")
 
 [node name="Player" parent="." instance=ExtResource("1_w0i2p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22634, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.69093, 1.57397, -2.4189)
+mesh = SubResource("CylinderMesh_gbrwt")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0696, 1.57397, -38.1621)
+mesh = SubResource("CylinderMesh_gbrwt")
