@@ -4,10 +4,11 @@ class_name Player
 @onready var camera_yaw = $CameraRoot/CameraYaw
 
 # game variables
-@export var speed = 14
+@export var speed = 5
 @export var jump_velocity = 4.5
 @export var fall_acceleration = 75
-@export var walk_deceleration = 8
+@export var player_deceleration = 0.08
+@export var player_acceleration = 0.5
 @export var health: int = 100
 @export var stamina: int = 100
 @export var catch_stamina: int = 1
@@ -55,19 +56,17 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		velocity.x = move_toward(velocity.x, direction.x * speed, abs(direction.x * player_acceleration))
+		velocity.z = move_toward(velocity.z, direction.z * speed, abs(direction.z * player_acceleration)) 
+		print(direction.x)
 	else:
-		velocity.x = move_toward(velocity.x, 0, abs(velocity.x/walk_deceleration))
-		velocity.z = move_toward(velocity.z, 0, abs(velocity.z/walk_deceleration))
+		velocity.x = move_toward(velocity.x, 0, abs(velocity.x * player_deceleration))
+		velocity.z = move_toward(velocity.z, 0, abs(velocity.z * player_deceleration))
 		
 		# Stop deceleration calculations when velocity is negligible
 		if abs(velocity.x) < 0.05:
 			velocity.x = 0
 		if abs(velocity.z) < 0.05:
 			velocity.z = 0
-		
-	print(velocity.x)
-	print(velocity.z)
-
+			
 	move_and_slide()
