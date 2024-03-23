@@ -29,8 +29,11 @@ func _process(delta):
 	else:
 		catch_stamina -= delta
 
-# Change yaw using same method as changing camera pitch
 func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().quit()
+	
+	# Change yaw using same method as changing camera pitch
 	if event is InputEventMouseMotion:
 		yaw += -event.relative.x * yaw_sensitivity
 
