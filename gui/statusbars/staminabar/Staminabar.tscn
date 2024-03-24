@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://buj35v2kroirl"]
+
+[ext_resource type="Texture2D" uid="uid://dtskdc63735lj" path="res://gui/statusbars/staminabar/border.png" id="1_i6563"]
+[ext_resource type="Texture2D" uid="uid://0hy15laqil34" path="res://gui/statusbars/staminabar/staminabar.png" id="2_chv0x"]
+[ext_resource type="Script" path="res://gui/statusbars/staminabar/Staminabar.gd" id="3_6k3sg"]
+[ext_resource type="Texture2D" uid="uid://cb1o8lijrih2i" path="res://gui/statusbars/staminabar/lossbar.png" id="4_ye058"]
+[ext_resource type="Texture2D" uid="uid://c6ic86efuo0s8" path="res://gui/statusbars/staminabar/backhealthbar.png" id="5_d865o"]
+
+[node name="Staminabar" type="TextureProgressBar"]
+offset_left = 39.0
+offset_top = 43.0
+offset_right = 612.0
+offset_bottom = 82.0
+step = 0.0
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("1_i6563")
+texture_progress = ExtResource("2_chv0x")
+script = ExtResource("3_6k3sg")
+
+[node name="Lossbar" type="TextureProgressBar" parent="."]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 80.0
+texture_progress = ExtResource("4_ye058")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d865o")
+expand_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

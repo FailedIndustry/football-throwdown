@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb1o8lijrih2i"
-path="res://.godot/imported/lossbar.png-62b6de088cdde14dba53350396683c48.ctex"
+uid="uid://dl1mg6jmwsxfp"
+path="res://.godot/imported/healthbar.png-a6c4645f4e62cda76f317856360223da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/statusbars/lossbar.png"
-dest_files=["res://.godot/imported/lossbar.png-62b6de088cdde14dba53350396683c48.ctex"]
+source_file="res://gui/statusbars/staminabar/healthbar.png"
+dest_files=["res://.godot/imported/healthbar.png-a6c4645f4e62cda76f317856360223da.ctex"]
 
 [params]
 

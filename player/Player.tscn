@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_8hnem"]
 [ext_resource type="Script" path="res://player/CameraController.gd" id="2_qcl6b"]
-[ext_resource type="PackedScene" uid="uid://buj35v2kroirl" path="res://gui/statusbars/Staminabar.tscn" id="3_6feab"]
+[ext_resource type="PackedScene" uid="uid://buj35v2kroirl" path="res://gui/statusbars/staminabar/Staminabar.tscn" id="3_5mu3w"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_04lua"]
 
@@ -40,7 +40,8 @@ script = ExtResource("2_qcl6b")
 [node name="Camera3D" type="Camera3D" parent="CameraRoot/CameraYaw/CameraPitch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0012176, 0.0991821, 3.21686)
 
-[node name="Staminabar" parent="." instance=ExtResource("3_6feab")]
+[node name="Staminabar" parent="." instance=ExtResource("3_5mu3w")]
+nine_patch_stretch = true
 
 [node name="PickUpDetection" type="Area3D" parent="."]
 collision_layer = 0
