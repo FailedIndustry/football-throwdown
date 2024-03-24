@@ -4,11 +4,9 @@ extends Node
 @onready var pitch_node = $CameraYaw/CameraPitch
 @onready var camera = $CameraYaw/CameraPitch/Camera3D
 
+@export var pitch : float = 0
 
 # yaw is currently handled in Player script by player rotation
-
-# var yaw : float = 0
-var pitch : float = 0
 
 # var yaw_sensitivity : float = 0.07
 var pitch_sensitivity : float = 0.07

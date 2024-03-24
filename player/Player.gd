@@ -1,8 +1,10 @@
 extends CharacterBody3D
 class_name Player
 
+@onready var camera = $CameraRoot
 @onready var camera_yaw = $CameraRoot/CameraYaw
 @onready var camera_pitch = $CameraRoot/CameraYaw/CameraPitch
+@onready var collision_detector = $PickUpDetection/CollisionShape3D
 @onready var staminabar = $Staminabar
 
 # game variables
@@ -38,7 +40,9 @@ func _ragdoll(force: Vector3):
 func _throw_ball():
 	carrying_ball = false
 	ball.carryable = false
-	ball.apply_central_impulse(Vector3(10 * -sin(rotation.y), 0, 10 * -cos(rotation.y)))
+	ball.linear_velocity = Vector3.ZERO
+	ball.angular_velocity = Vector3.ZERO
+	ball.apply_central_impulse(Vector3(-sin(rotation.y) * 10, 6 * (0.5 + deg_to_rad(camera.pitch)), -cos(rotation.y) * 10))
 
 func _set_stamina(value):
 	stamina += value
@@ -66,12 +70,17 @@ func _input(event):
 		yaw += -event.relative.x * yaw_sensitivity
 
 func _physics_process(delta):
-	is_regenerating_stamina = true
 
+	is_regenerating_stamina = true
+	
+	# print(deg_to_rad(camera.pitch))
+	
 	if (carrying_ball):
-		ball.position = position + Vector3(-sin(rotation.y) * 1.2, 0, -cos(rotation.y) * 1.2)
+		# the scalar this vector is multiplied by will need to be modified
+		ball.position = position + Vector3(-sin(rotation.y), 1, -cos(rotation.y))
 		print("Player rotation:", rotation)
 		print("Ball position:", ball.position)
+	
 	# Rotate player yaw
 	rotation_degrees.y = rad_to_deg(lerp_angle(rotation.y, yaw, yaw_acceleration * delta))
 	
