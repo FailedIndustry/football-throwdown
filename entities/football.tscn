@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://b8loxy78gj7xn"]
+[gd_scene load_steps=4 format=3 uid="uid://b8loxy78gj7xn"]
 
-[node name="Football" type="Node3D"]
+[ext_resource type="Script" path="res://entities/football.gd" id="1_ubp03"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mj4xb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qum36"]
+
+[node name="Node3D" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_ubp03")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_mj4xb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_qum36")

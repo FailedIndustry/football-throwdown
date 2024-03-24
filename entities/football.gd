@@ -2,6 +2,7 @@ extends RigidBody3D
 
 ## Will be null if not picked up
 var carrier = Player
+var item_name = "BALL"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

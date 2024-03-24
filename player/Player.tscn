@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://jcti73ukm64e"]
+[gd_scene load_steps=8 format=3 uid="uid://jcti73ukm64e"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_8hnem"]
 [ext_resource type="Script" path="res://player/CameraController.gd" id="2_qcl6b"]
@@ -10,7 +10,13 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ks4al"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_akoya"]
+size = Vector3(1.5, 2, 1.5)
+
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000703335, 0, -0.00164533)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_8hnem")
 
 [node name="DirectionArrow" type="MeshInstance3D" parent="."]
@@ -35,3 +41,12 @@ script = ExtResource("2_qcl6b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08571, 3.22589)
 
 [node name="Staminabar" parent="." instance=ExtResource("3_6feab")]
+
+[node name="PickUpDetection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpDetection"]
+shape = SubResource("BoxShape3D_akoya")
+
+[connection signal="body_entered" from="PickUpDetection" to="." method="_on_pick_up_detection_body_entered"]
