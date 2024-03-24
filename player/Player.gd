@@ -165,5 +165,6 @@ func _physics_process(delta):
 
 func _on_pick_up_detection_body_entered(body):
 	print("Item detected: ", body.item_name)
-	carrying_ball = true
-	ball = body
+	if(!carrying_ball):
+		carrying_ball = true
+		ball = body
