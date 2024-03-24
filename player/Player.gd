@@ -84,9 +84,11 @@ func _physics_process(delta):
 			_set_stamina(-stamina_loss)
 		else:
 			speed = walk_speed
-			
-		velocity.x = move_toward(velocity.x, direction.x * speed, abs(direction.x * player_acceleration))
-		velocity.z = move_toward(velocity.z, direction.z * speed, abs(direction.z * player_acceleration)) 
+		
+
+		velocity.x = move_toward(velocity.x, direction.x * speed, abs(velocity.x * player_deceleration) + abs(direction.x * player_acceleration))
+		velocity.z = move_toward(velocity.z, direction.z * speed, abs(velocity.z * player_deceleration) + abs(direction.z * player_acceleration)) 
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, abs(velocity.x * player_deceleration))
 		velocity.z = move_toward(velocity.z, 0, abs(velocity.z * player_deceleration))
@@ -99,5 +101,6 @@ func _physics_process(delta):
 			
 	if (is_regenerating_stamina):
 		_set_stamina(stamina_regen)
-		
+	print("Velocity: ", velocity)
+	print("Input Direction: ", input_dir)
 	move_and_slide()
