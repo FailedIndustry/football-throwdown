@@ -6,6 +6,7 @@ class_name Player
 @onready var camera_pitch = $CameraRoot/CameraYaw/CameraPitch
 @onready var collision_detector = $PickUpDetection/CollisionShape3D
 @onready var staminabar = $Staminabar
+@onready var chargebar = $Chargebar
 
 ## Player variables
 # States
@@ -23,8 +24,10 @@ var is_regenerating_stamina: bool = true
 @export var sprint_speed: float = 7
 
 # Throw variables
-@export var horizontal_throw_power: float = 10
-@export var vertical_throw_power: float = 6
+@export var charge: float = 0
+@export var max_charge: float = 100
+@export var base_horizontal_throw_power: float = 2
+@export var base_vertical_throw_power: float = 1.2
 @export var vertical_height_correction: float = 0.5
 
 # Movement variables
@@ -46,25 +49,32 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ragdoll(force: Vector3):
 	pass
 
-func _throw_ball():
+func _throw_ball(charge):
 	carrying_ball = false
-	ball.carryable = false
+	# ball.carryable = false
 	ball.linear_velocity = Vector3.ZERO
 	ball.angular_velocity = Vector3.ZERO
 	
 	# Apply an impulse on the center of mass of the ball
 	ball.apply_central_impulse(Vector3(
-		horizontal_throw_power * -sin(rotation.y), 
-			vertical_throw_power * (vertical_height_correction + deg_to_rad(camera.pitch)), 
-				horizontal_throw_power * -cos(rotation.y)))
+		base_horizontal_throw_power * charge * -sin(rotation.y), 
+			base_vertical_throw_power * charge * (vertical_height_correction + deg_to_rad(camera.pitch)), 
+				base_horizontal_throw_power * charge * -cos(rotation.y)))
 
 func _set_stamina(value):
 	stamina += value
 	stamina = clamp(stamina, 0, 100)
 	staminabar.stamina = stamina
 	
+func _set_charge(value):
+	charge += value
+	charge = clamp(charge, 0, 100)
+	chargebar.charge = charge
+	
 func _ready():
 	staminabar.init_stamina(stamina)
+	chargebar.init_charge(max_charge, charge)
+	chargebar.hide()
 
 func _process(delta):
 	if catch_stamina <= 0:
@@ -76,9 +86,6 @@ func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 		
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		_throw_ball()
-	
 	# Change yaw using same method as changing camera pitch
 	if event is InputEventMouseMotion:
 		yaw += -event.relative.x * yaw_sensitivity
@@ -87,13 +94,25 @@ func _physics_process(delta):
 
 	is_regenerating_stamina = true
 	
+	if carrying_ball:
+		if Input.is_action_just_pressed("ui_primary"):
+			chargebar.show()
+		
+		if Input.is_action_pressed("ui_primary"):
+			_set_charge(0.2)
+		
+		if Input.is_action_just_released("ui_primary"):
+			chargebar.hide()
+			_throw_ball(charge * 0.2)
+			_set_charge(-charge)
+
 	# print(deg_to_rad(camera.pitch))
 	
 	if (carrying_ball):
 		# the scalar this vector is multiplied by will need to be modified
 		ball.position = position + Vector3(-sin(rotation.y), 1, -cos(rotation.y))
-		print("Player rotation:", rotation)
-		print("Ball position:", ball.position)
+		# print("Player rotation:", rotation)
+		# print("Ball position:", ball.position)
 	
 	# Rotate player yaw
 	rotation_degrees.y = rad_to_deg(lerp_angle(rotation.y, yaw, yaw_acceleration * delta))

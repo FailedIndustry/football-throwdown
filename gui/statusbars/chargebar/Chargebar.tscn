@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqdur5iee31yf"]
+
+[ext_resource type="Texture2D" uid="uid://b03wcjjoxy36u" path="res://gui/statusbars/chargebar/backhealthbar.png" id="1_ahvuh"]
+[ext_resource type="Texture2D" uid="uid://m62tmw0knvwn" path="res://gui/statusbars/chargebar/border.png" id="2_sj1xq"]
+[ext_resource type="Texture2D" uid="uid://bbpjhnr8bp38f" path="res://gui/statusbars/chargebar/chargebar.png" id="3_85upx"]
+[ext_resource type="Script" path="res://gui/statusbars/chargebar/Chargebar.gd" id="4_gs7q1"]
+
+[node name="Chargebar" type="TextureProgressBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -135.0
+offset_right = 223.0
+offset_bottom = -102.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_ahvuh")
+texture_over = ExtResource("2_sj1xq")
+texture_progress = ExtResource("3_85upx")
+script = ExtResource("4_gs7q1")
