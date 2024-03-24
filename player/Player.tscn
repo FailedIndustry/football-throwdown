@@ -11,7 +11,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ks4al"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_akoya"]
-size = Vector3(1.5, 2, 1.5)
+size = Vector3(1.5, 2.04089, 1.5)
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000703335, 0, -0.00164533)
@@ -38,7 +38,7 @@ script = ExtResource("2_qcl6b")
 [node name="CameraPitch" type="Node3D" parent="CameraRoot/CameraYaw"]
 
 [node name="Camera3D" type="Camera3D" parent="CameraRoot/CameraYaw/CameraPitch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08571, 3.22589)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0012176, 0.0991821, 3.21686)
 
 [node name="Staminabar" parent="." instance=ExtResource("3_6feab")]
 
@@ -47,6 +47,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpDetection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0204468, 0)
 shape = SubResource("BoxShape3D_akoya")
 
 [connection signal="body_entered" from="PickUpDetection" to="." method="_on_pick_up_detection_body_entered"]

@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Player
 
 @onready var camera_yaw = $CameraRoot/CameraYaw
+@onready var camera_pitch = $CameraRoot/CameraYaw/CameraPitch
 @onready var staminabar = $Staminabar
 
 # game variables
@@ -19,6 +20,8 @@ class_name Player
 @export var stamina_jump_cost: float = 10
 @export var sprint_speed: float = 7
 
+var ball
+var carrying_ball = false
 var is_regenerating_stamina: bool = true
 
 # y-rotation variables 
@@ -29,9 +32,14 @@ var yaw_acceleration : float = 15
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func ragdoll(force: Vector3):
+func _ragdoll(force: Vector3):
 	pass
-	
+
+func _throw_ball():
+	carrying_ball = false
+	ball.carryable = false
+	ball.apply_central_impulse(Vector3(10 * -sin(rotation.y), 0, 10 * -cos(rotation.y)))
+
 func _set_stamina(value):
 	stamina += value
 	stamina = clamp(stamina, 0, 100)
@@ -49,6 +57,9 @@ func _process(delta):
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+		
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_throw_ball()
 	
 	# Change yaw using same method as changing camera pitch
 	if event is InputEventMouseMotion:
@@ -56,7 +67,11 @@ func _input(event):
 
 func _physics_process(delta):
 	is_regenerating_stamina = true
-	
+
+	if (carrying_ball):
+		ball.position = position + Vector3(-sin(rotation.y) * 1.2, 0, -cos(rotation.y) * 1.2)
+		print("Player rotation:", rotation)
+		print("Ball position:", ball.position)
 	# Rotate player yaw
 	rotation_degrees.y = rad_to_deg(lerp_angle(rotation.y, yaw, yaw_acceleration * delta))
 	
@@ -108,4 +123,5 @@ func _physics_process(delta):
 
 func _on_pick_up_detection_body_entered(body):
 	print("Item detected: ", body.item_name)
-	body.queue_free()
+	carrying_ball = true
+	ball = body

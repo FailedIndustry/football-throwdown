@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bkl7akcf5ndf6"]
 
 [ext_resource type="PackedScene" uid="uid://jcti73ukm64e" path="res://player/Player.tscn" id="1_w0i2p"]
-[ext_resource type="PackedScene" uid="uid://b8loxy78gj7xn" path="res://entities/football.tscn" id="2_bfmbs"]
+[ext_resource type="PackedScene" uid="uid://b8loxy78gj7xn" path="res://entities/Ball.tscn" id="2_bfmbs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j63hc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -53,7 +53,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0476, 1.51352, -20.1547)
 shape = SubResource("CylinderShape3D_fxwia")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor/CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_gbrwt")
 skeleton = NodePath("../../..")
 
@@ -89,5 +88,5 @@ mesh = SubResource("BoxMesh_a66df")
 [node name="Player" parent="." instance=ExtResource("1_w0i2p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22634, 0)
 
-[node name="Node3D" parent="." instance=ExtResource("2_bfmbs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91728, -3.43076)
+[node name="Ball" parent="." instance=ExtResource("2_bfmbs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.18203, -5.17039)
