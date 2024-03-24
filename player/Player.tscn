@@ -16,6 +16,7 @@ size = Vector3(1.5, 2.04089, 1.5)
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000703335, 0, -0.00164533)
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_8hnem")
 
 [node name="DirectionArrow" type="MeshInstance3D" parent="."]

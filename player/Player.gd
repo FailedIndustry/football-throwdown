@@ -7,31 +7,40 @@ class_name Player
 @onready var collision_detector = $PickUpDetection/CollisionShape3D
 @onready var staminabar = $Staminabar
 
-# game variables
-@export var walk_speed: float = 5
-@export var jump_velocity: float = 4.5
-@export var fall_acceleration: float = 75
-@export var player_deceleration: float = 0.08
-@export var player_acceleration: float = 0.5
+## Player variables
+# States
+@export var can_catch: bool = false
+var carrying_ball = false
+var is_regenerating_stamina: bool = true
+
+# Health, stamina
 @export var health: int = 100
 @export var stamina: float = 100
 @export var catch_stamina: int = 1
-@export var can_catch: bool = false
 @export var stamina_loss: float = 0.05
 @export var stamina_regen: float = 0.1
 @export var stamina_jump_cost: float = 10
 @export var sprint_speed: float = 7
 
-var ball
-var carrying_ball = false
-var is_regenerating_stamina: bool = true
+# Throw variables
+@export var horizontal_throw_power: float = 10
+@export var vertical_throw_power: float = 6
+@export var vertical_height_correction: float = 0.5
 
-# y-rotation variables 
+# Movement variables
+@export var walk_speed: float = 5
+@export var jump_velocity: float = 4.5
+@export var fall_acceleration: float = 75
+@export var player_deceleration: float = 0.08
+@export var player_acceleration: float = 0.5
+
+# Rotation variables 
 var yaw : float = 0
 var yaw_sensitivity : float = 0.002
 var yaw_acceleration : float = 15
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+## Game variables
+var ball
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ragdoll(force: Vector3):
@@ -42,7 +51,12 @@ func _throw_ball():
 	ball.carryable = false
 	ball.linear_velocity = Vector3.ZERO
 	ball.angular_velocity = Vector3.ZERO
-	ball.apply_central_impulse(Vector3(-sin(rotation.y) * 10, 6 * (0.5 + deg_to_rad(camera.pitch)), -cos(rotation.y) * 10))
+	
+	# Apply an impulse on the center of mass of the ball
+	ball.apply_central_impulse(Vector3(
+		horizontal_throw_power * -sin(rotation.y), 
+			vertical_throw_power * (vertical_height_correction + deg_to_rad(camera.pitch)), 
+				horizontal_throw_power * -cos(rotation.y)))
 
 func _set_stamina(value):
 	stamina += value
