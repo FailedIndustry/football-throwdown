@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://jcti73ukm64e"]
+[gd_scene load_steps=10 format=3 uid="uid://jcti73ukm64e"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_8hnem"]
+[ext_resource type="PackedScene" uid="uid://bvq7642g44i71" path="res://gui/ScoreCounter.tscn" id="2_608fq"]
 [ext_resource type="Script" path="res://player/CameraController.gd" id="2_qcl6b"]
 [ext_resource type="PackedScene" uid="uid://buj35v2kroirl" path="res://gui/statusbars/staminabar/Staminabar.tscn" id="3_5mu3w"]
 [ext_resource type="PackedScene" uid="uid://dqdur5iee31yf" path="res://gui/statusbars/chargebar/Chargebar.tscn" id="4_c8aoq"]
@@ -19,6 +20,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000703335, 0, -0.00164533)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_8hnem")
+
+[node name="ScoreCounter" parent="." instance=ExtResource("2_608fq")]
 
 [node name="DirectionArrow" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.33748e-15, -3.0598e-08, 0.7, -0.7, -3.0598e-08, 0, 3.0598e-08, -0.7, -3.0598e-08, 0, 0.457317, -0.569673)

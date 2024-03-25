@@ -9,6 +9,7 @@
 [node name="Ball" type="RigidBody3D"]
 collision_layer = 8
 collision_mask = 15
+linear_damp = 1.0
 script = ExtResource("1_ubp03")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

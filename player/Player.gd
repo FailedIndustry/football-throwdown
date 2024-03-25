@@ -7,6 +7,7 @@ class_name Player
 @onready var collision_detector = $PickUpDetection/CollisionShape3D
 @onready var staminabar = $Staminabar
 @onready var chargebar = $Chargebar
+@onready var event_handler = $"../EventHandler"
 
 ## Player variables
 # States
@@ -26,6 +27,7 @@ var is_regenerating_stamina: bool = true
 # Throw variables
 @export var charge: float = 0
 @export var max_charge: float = 100
+@export var charge_speed: float = 0.5
 @export var base_horizontal_throw_power: float = 2
 @export var base_vertical_throw_power: float = 1.2
 @export var vertical_height_correction: float = 0.5
@@ -51,7 +53,10 @@ func _ragdoll(force: Vector3):
 
 func _throw_ball(charge):
 	carrying_ball = false
+	# will need to make sure players can't pick up a ball when it's already picked up
 	# ball.carryable = false
+	
+	# set current ball velocities to zero to avoid unpredictable physics interactions when throwing
 	ball.linear_velocity = Vector3.ZERO
 	ball.angular_velocity = Vector3.ZERO
 	
@@ -91,7 +96,6 @@ func _input(event):
 		yaw += -event.relative.x * yaw_sensitivity
 
 func _physics_process(delta):
-
 	is_regenerating_stamina = true
 	
 	if carrying_ball:
@@ -99,7 +103,7 @@ func _physics_process(delta):
 			chargebar.show()
 		
 		if Input.is_action_pressed("ui_primary"):
-			_set_charge(0.2)
+			_set_charge(charge_speed)
 		
 		if Input.is_action_just_released("ui_primary"):
 			chargebar.hide()
