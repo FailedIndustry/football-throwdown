@@ -19,6 +19,13 @@ offset_right = 849.0
 offset_bottom = 165.0
 text = "0"
 
+[node name="OyellyTeamScore" type="RichTextLabel" parent="."]
+offset_left = 1004.0
+offset_top = 199.0
+offset_right = 1024.0
+offset_bottom = 239.0
+text = "0"
+
 [node name="RedLabel" type="RichTextLabel" parent="."]
 offset_left = 317.0
 offset_top = 125.0
@@ -33,3 +40,10 @@ offset_right = 860.0
 offset_bottom = 163.0
 text = "Blue Team Score:
 "
+
+[node name="OyellyLabel" type="RichTextLabel" parent="."]
+offset_left = 808.0
+offset_top = 200.0
+offset_right = 1020.0
+offset_bottom = 240.0
+text = "Oyelly Company Score:"

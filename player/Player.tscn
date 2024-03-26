@@ -57,3 +57,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0204468, 0)
 shape = SubResource("BoxShape3D_akoya")
 
 [connection signal="body_entered" from="PickUpDetection" to="." method="_on_pick_up_detection_body_entered"]
+
+[editable path="ScoreCounter"]
