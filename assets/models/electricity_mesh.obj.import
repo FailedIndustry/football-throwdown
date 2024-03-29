@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://coykndnqreyte"
+path="res://.godot/imported/electricity_mesh.obj-fdc09e5dcb799125a94786d657c20093.mesh"
+
+[deps]
+
+files=["res://.godot/imported/electricity_mesh.obj-fdc09e5dcb799125a94786d657c20093.mesh"]
+
+source_file="res://assets/models/electricity_mesh.obj"
+dest_files=["res://.godot/imported/electricity_mesh.obj-fdc09e5dcb799125a94786d657c20093.mesh", "res://.godot/imported/electricity_mesh.obj-fdc09e5dcb799125a94786d657c20093.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

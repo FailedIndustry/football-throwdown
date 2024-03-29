@@ -1,10 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8loxy78gj7xn"]
+[gd_scene load_steps=12 format=3 uid="uid://b8loxy78gj7xn"]
 
 [ext_resource type="Script" path="res://entities/Ball.gd" id="1_ubp03"]
+[ext_resource type="Shader" path="res://assets/shaders/glass.gdshader" id="2_ik8uy"]
+[ext_resource type="PackedScene" uid="uid://co2xxbnj6dm42" path="res://assets/particles/electricity.tscn" id="3_ck2e8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mj4xb"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_24jk7"]
+render_priority = 0
+shader = ExtResource("2_ik8uy")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/roughness = 0.15
+shader_parameter/normal_strength = 1.0
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+
 [sub_resource type="SphereMesh" id="SphereMesh_qum36"]
+material = SubResource("ShaderMaterial_24jk7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sotao"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_u3noh"]
+material = SubResource("StandardMaterial3D_sotao")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Gradient" id="Gradient_k7m2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q3r3h"]
+gradient = SubResource("Gradient_k7m2o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jrtt2"]
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.02
+color_ramp = SubResource("GradientTexture1D_q3r3h")
 
 [node name="Ball" type="RigidBody3D"]
 collision_layer = 8
@@ -15,5 +46,36 @@ script = ExtResource("1_ubp03")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_mj4xb")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Exterior" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_qum36")
+
+[node name="Interior" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_u3noh")
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175208, 0)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D2" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(1, 0, 0, 0, 0.137168, -0.990548, 0, 0.990548, 0.137168, 0, 0, 0.172498)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D3" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(0.18637, -0.98248, 0, 0.98248, 0.18637, 0, 0, 0, 1, -0.19584, 0.0398114, 0)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D4" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(0.781869, 0.623443, 0, -0.623443, 0.781869, 0, 0, 0, 1, 0.145282, 0.0836535, 0)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D5" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(-0.997288, -0.0736036, 0, 0.0736036, -0.997288, 0, 0, 0, 1, 0, -0.166649, 0)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D6" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(-0.570493, 0.596627, 0.564424, 0.223398, -0.548592, 0.805693, 0.790336, 0.585733, 0.179683, 0.0750437, -0.0772077, 0.053335)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
+
+[node name="GPUParticles3D7" parent="." instance=ExtResource("3_ck2e8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175208, 0)
+process_material = SubResource("ParticleProcessMaterial_jrtt2")
